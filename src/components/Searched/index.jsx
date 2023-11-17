@@ -9,7 +9,7 @@ const Searched = () => {
     let params = useParams();
 
     const getSearched = async (name) => {
-        const apiKey = '75a3c8c477a64f2a831716c669efb335';
+        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
         const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=12&query=${name}`);
         const recipes = await data.json();
         setSearchResults(recipes.results);

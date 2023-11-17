@@ -15,23 +15,24 @@ const Vegetarian = () => {
 
     const getVeg = async() => {
 
-        const check = localStorage.getItem('veg');
-        if(check){
-            setVeg(JSON.parse(check));
-        }else{
-                    // const apiKey = process.env.RECIPE_APP_API_KEY;
-        const apiKey = '75a3c8c477a64f2a831716c669efb335';
+        // const check = localStorage.getItem('veg');
+        // if(check){
+        //     setVeg(JSON.parse(check));
+        // }else{
+        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
+        // const apiKey = '75a3c8c477a64f2a831716c669efb335';
         const api= await fetch (`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=12&tags=vegetarian`);
         const data = await api.json();
-        localStorage.setItem('veg', JSON.stringify(data.recipes));
-        console.log(data);
+        // localStorage.setItem('veg', JSON.stringify(data.recipes));
+        // console.log(data);
         setVeg(data.recipes);
-        }
+        // }
     }
 
     return(
         <Wrapper>
         <h3>Vegetarian Picks</h3>
+        {(veg.length>0 ? 
         <Splide options={{perPage: 4, arrows: false, pagination: false, drag: 'free', gap:'1rem'}}>
         {veg.map((recipe) => {
             return(
@@ -47,6 +48,7 @@ const Vegetarian = () => {
             );
         })}
         </Splide>
+        : <h3>API limit reached for the day </h3>)}
     </Wrapper>
     );
 }
