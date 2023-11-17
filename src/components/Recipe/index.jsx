@@ -22,6 +22,7 @@ const Recipe = () => {
 
     return (
         <DetailWrapper>
+            {console.log(details)}
             <div>
             <h2>{details.title}</h2>
             <img src={details.image} alt={details.title} />
@@ -29,16 +30,20 @@ const Recipe = () => {
             <Info>
                 <Button className = {activeTab==='instructions'? 'active' : ''} onClick={()=> setActiveTab('instructions')}>Instructions</Button>
                 <Button className = {activeTab==='ingredients'? 'active' : ''} onClick={()=> setActiveTab('ingredients')}>Ingredients</Button>
-            </Info>
+            {activeTab === "instructions" && (
             <div>
-                <p dangerouslySetInnerHTML={{__html: details.summary}}></p>
+                {/* <p dangerouslySetInnerHTML={{__html: details.summary}}></p> */}
                 <p dangerouslySetInnerHTML={{__html: details.instructions}}></p>
-            </div>
-            {/* <ul>
-                {details.extendedIngredients.map((ingredient) => {
-                    <li key={ingredient.id}>{ingredient.original}</li>
+            </div> 
+            )}
+            {activeTab === "ingredients" && (
+            <ul>
+                {details.extendedIngredients && details.extendedIngredients.map((ingredient) => {
+                   return <li key={ingredient.id}>{ingredient.original}</li>
                 }) }
-            </ul> */}
+            </ul>
+            )}
+            </Info>
         </DetailWrapper>
     )
 }
@@ -52,15 +57,19 @@ display: flex;
     color: white;
 }
 img{
-    width: 100%;
+    border-radius: 50px;
+    left: 0;
+    width: 300px;
+    height: auto;
+    object-fit: cover;
 }
 h2{
-    margin-bottom: 1rem;
-    font-size: 32px;
-    line-height: 2rem;
+    margin-bottom: 5rem;
+    font-size: 2rem;
+    line-height: 2.5rem;
 }
 li{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     line-height: 2.5rem;
 }
 ul{
@@ -69,16 +78,17 @@ ul{
 `
 
 const Button = styled.button`
-padding: 1rem 1rem;
+// position: absolute;
+padding: 1rem 2rem;
 color: #313131;
 background: #white;
 border: 2px solid black;
-margin-right: 1rem;
+margin-right: 2rem;
 font-weight: 600;
 `
 
 const Info = styled.div`
-margin-left: 5rem;
+margin-left: 10rem;
 `
 
 export default Recipe;

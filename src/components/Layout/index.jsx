@@ -1,18 +1,24 @@
 import { Outlet } from 'react-router-dom';
 import Categories from '../Categories';
 import Search from '../Search';
+import {motion} from 'framer-motion';
 import './index.css';
 
 
 const Layout = () => {
     return(
-        <div className='app'>
+        <motion.div 
+        className='app'
+        animate={{opacity:1}}
+        initial={{opacity:0}}
+        exit={{opacity:0}}
+        transition={{ duration: 0.5 }}>
             <Search />
             <Categories />
             <div className='rest-of-page'>  
                 <Outlet />
             </div>
-        </div>
+        </motion.div>
         )
 }
 
