@@ -10,7 +10,7 @@ const Recipe = () => {
     let params = useParams();
 
     const fetchDetails = async (name) => {
-        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
+        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY_1;
         const data = await fetch(`https://api.spoonacular.com/recipes/${name}/information?apiKey=${apiKey}&number=12`);
         const detailedData = await data.json();
         setDetails(detailedData);
