@@ -32,8 +32,12 @@ const Categories = () => {
 
 const List = styled.div`
 display: flex;
-justify-content: center;
+justify-content: space-between;
 margin: 2rem 0;
+
+@media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 
 `
 
@@ -46,7 +50,7 @@ border-radius: 50px;
 margin:1rem;
 text-decoration: none;
 background: linear-gradient(35deg, #494949, #313131);
-width: 5rem;
+width: 48%;
 height:5rem;
 cursor: pointer;
 transform: scale(0.8);
@@ -71,6 +75,12 @@ svg{
         color: white;
     }
 }
+
+@media (max-width: 930px) {
+    width: 48%;
+    margin: 0rem;
+    border-radius: 50px;
+  }
 
 `
 

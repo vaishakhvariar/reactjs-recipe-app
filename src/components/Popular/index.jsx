@@ -7,31 +7,37 @@ import { Link } from 'react-router-dom';
 const Popular = () => {
 
     const [popular, setPopular] = useState([]);
+    const [splideOptions, setSplideOptions] = useState({
+        perPage: 3,
+        arrows: false,
+        pagination: false,
+        drag: 'free',
+        gap: '1rem',
+    });
 
-    useEffect(()=>{
+    useEffect(() => {
         getPopular();
-    },[]);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
+    const handleResize = () => {
+        const newPerPage = window.innerWidth < 768 ? 1 : 3;
+        setSplideOptions((prevOptions) => ({ ...prevOptions, perPage: newPerPage }));
+    };
+    
     const getPopular = async() => {
 
-        // const check = localStorage.getItem('popular');
-        // if(check){
-        //     setPopular(JSON.parse(check));
-        // }else{
         const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
-        // const apiKey = '75a3c8c477a64f2a831716c669efb335';
         const api= await fetch (`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=12`);
         const data = await api.json();
-        // localStorage.setItem('popular', JSON.stringify(data.recipes));
-        // console.log(data);
         setPopular(data.recipes);
-        // }
     }
     return(
     <Wrapper>
         <h3>Popular Picks</h3>
-        {(popular.length>0 ?
-        <Splide options={{perPage: 3, arrows: false, pagination: false, drag: 'free', gap:'1rem'}}>
+        {(popular?.length>0 ?
+        <Splide options={splideOptions}>
         {popular.map((recipe) => {
             return(
                 <SplideSlide key={recipe.id}>
@@ -46,7 +52,7 @@ const Popular = () => {
             );
         })}
         </Splide>
-        : <h3>API limit reached for the day </h3>)}
+        : <h4>API limit reached for the day </h4>)}
     </Wrapper>
     );
 }

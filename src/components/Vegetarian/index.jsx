@@ -8,10 +8,24 @@ import { Link } from 'react-router-dom';
 const Vegetarian = () => {
 
     const [veg, setVeg] = useState([]);
+    const [splideOptions, setSplideOptions] = useState({
+        perPage: 4,
+        arrows: false,
+        pagination: false,
+        drag: 'free',
+        gap: '1rem',
+    });
 
-    useEffect(()=>{
+    useEffect(() => {
         getVeg();
-    },[]);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const handleResize = () => {
+        const newPerPage = window.innerWidth < 768 ? 2 : 4;
+        setSplideOptions((prevOptions) => ({ ...prevOptions, perPage: newPerPage }));
+    };
 
     const getVeg = async() => {
 
@@ -32,8 +46,8 @@ const Vegetarian = () => {
     return(
         <Wrapper>
         <h3>Vegetarian Picks</h3>
-        {(veg.length>0 ? 
-        <Splide options={{perPage: 4, arrows: false, pagination: false, drag: 'free', gap:'1rem'}}>
+        {(veg?.length>0 ? 
+        <Splide options={splideOptions}>
         {veg.map((recipe) => {
             return(
                 <SplideSlide key={recipe.id}>
@@ -48,7 +62,7 @@ const Vegetarian = () => {
             );
         })}
         </Splide>
-        : <h3>API limit reached for the day </h3>)}
+        : <h4>API limit reached for the day </h4>)}
     </Wrapper>
     );
 }

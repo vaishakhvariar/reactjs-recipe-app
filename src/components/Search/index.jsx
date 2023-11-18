@@ -51,6 +51,14 @@ svg{
     left: 0%;
     transform: translate(100%, -50%);
     color: white;
-}`
+}
+@media (max-width: 768px) {
+    margin: 1rem auto; 
+    width: 100%;
+  }
+
+
+
+`
 
 export default Search;

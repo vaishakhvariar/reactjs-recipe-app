@@ -46,7 +46,14 @@ const Cuisine = () => {
 const Grid = styled(motion.div)`
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-grid-gap: 3rem;`;
+grid-gap: 3rem;
+
+@media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-gap: 1rem;
+  }
+
+`;
 
 const Card = styled.div`
 img {
