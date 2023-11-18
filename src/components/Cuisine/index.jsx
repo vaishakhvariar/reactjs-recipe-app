@@ -19,7 +19,6 @@ const Cuisine = () => {
 
     useEffect(()=>{
         getCuisine(params.type);
-        console.log('test:', params.type);
     }, [params.type]);
 
     return (
