@@ -55,15 +55,6 @@ margin: 2rem 0;
 display: flex;
 flex-direction: column;
 align-items:center;
-
-// img{
-//     border-radius: 50px;
-//     width: 100%;
-//     max-width: 400px;
-//     height: auto;
-//     object-fit: cover;
-//     margin-top: 1rem;
-// }
 h2{
     margin-bottom: 1rem;
     font-size: 2rem;

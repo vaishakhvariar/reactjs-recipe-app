@@ -25,10 +25,10 @@ const Popular = () => {
         const newPerPage = window.innerWidth < 768 ? 1 : 3;
         setSplideOptions((prevOptions) => ({ ...prevOptions, perPage: newPerPage }));
     };
-    
+
     const getPopular = async() => {
 
-        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
+        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY_1;
         const api= await fetch (`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=12`);
         const data = await api.json();
         setPopular(data.recipes);

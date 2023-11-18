@@ -33,7 +33,7 @@ const Vegetarian = () => {
         // if(check){
         //     setVeg(JSON.parse(check));
         // }else{
-        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
+        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY_1;
         // const apiKey = '75a3c8c477a64f2a831716c669efb335';
         const api= await fetch (`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=12&tags=vegetarian`);
         const data = await api.json();

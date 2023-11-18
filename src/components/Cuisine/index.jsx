@@ -8,17 +8,18 @@ import { useEffect, useState } from "react";
 const Cuisine = () => {
 
     const [cuisine, setCuisine] = useState([]);
-    let params=useParams;
+    let params=useParams();
 
     const getCuisine = async (name) => {
-        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY;
-        const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=12&category=${name}`);
+        const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY_1;
+        const data = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=12&cuisine=${name}`);
         const recipes = await data.json();
         setCuisine(recipes.results);
     }
 
     useEffect(()=>{
         getCuisine(params.type);
+        console.log('test:', params.type);
     }, [params.type]);
 
     return (
@@ -28,7 +29,8 @@ const Cuisine = () => {
         exit={{opacity:0}}
         transition={{ duration: 0.5 }}
         >
-            {cuisine.map((item) => {
+            {(cuisine?.length>0 ? 
+            cuisine.map((item) => {
                 return (
                     <Card key={item.id}>
                         <Link to={"/recipe/"+item.id}>
@@ -37,7 +39,8 @@ const Cuisine = () => {
                     </Link>
                     </Card>
                 )
-            })}
+            })
+            : <h4>API limit reached for the day </h4>)}
         </Grid>
 
     )
