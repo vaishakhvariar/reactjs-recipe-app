@@ -1,4 +1,3 @@
-import './index.css';
 import Popular from '../Popular';
 import Vegetarian from '../Vegetarian';
 

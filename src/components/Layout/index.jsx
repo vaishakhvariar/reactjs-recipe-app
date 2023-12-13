@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import Categories from '../Categories';
 import Search from '../Search';
 import {motion} from 'framer-motion';
-import './index.css';
 
 
 const Layout = () => {

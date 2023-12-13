@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 const Popular = () => {
 
     const [popular, setPopular] = useState([]);
+    const [error, setError] = useState(null);
     const [splideOptions, setSplideOptions] = useState({
         perPage: 3,
         arrows: false,
@@ -28,32 +29,38 @@ const Popular = () => {
 
     const getPopular = async() => {
 
+        try{
         const apiKey = import.meta.env.VITE_RECIPE_APP_API_KEY_1;
         const api= await fetch (`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}&number=12`);
         const data = await api.json();
         setPopular(data.recipes);
+        setError(null); 
+        }catch(error){
+            console.error(error);
+            setError('API limit reached for the day.');
+        }
     }
     return(
-    <Wrapper>
-        <h3>Popular Picks</h3>
-        {(popular?.length>0 ?
-        <Splide options={splideOptions}>
-        {popular.map((recipe) => {
-            return(
-                <SplideSlide key={recipe.id}>
-                <Card> 
-                    <Link to={"/recipe/"+recipe.id}>
-                  <p>{recipe.title}</p>  
-                  <img src={recipe.image} alt={recipe.title} />
-                  <Gradient />
-                  </Link>
-                </Card>
-                </SplideSlide>
-            );
-        })}
-        </Splide>
-        : <h4>API limit reached for the day </h4>)}
-    </Wrapper>
+        <Wrapper>
+            <h3>Popular Picks</h3>
+            {error ? (
+                <h4>{error}</h4>
+            ) : (
+                <Splide options={splideOptions}>
+                    {popular.map((recipe) => (
+                        <SplideSlide key={recipe.id}>
+                            <Card>
+                                <Link to={"/recipe/" + recipe.id}>
+                                    <p>{recipe.title}</p>
+                                    <img src={recipe.image} alt={recipe.title} />
+                                    <Gradient />
+                                </Link>
+                            </Card>
+                        </SplideSlide>
+                    ))}
+                </Splide>
+            )}
+        </Wrapper>
     );
 }
 
